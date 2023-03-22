@@ -47,6 +47,9 @@ public class BlogSearchServiceImpl implements BlogSearchService {
 
     @Override
     public List<SearchHistory> getPopularSearchTerms(int limit) {
+        if(limit > 10){
+            limit = 10;
+        }
         Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "searchCount"));
         return searchHistoryRepository.findAll(pageable).getContent();
     }
